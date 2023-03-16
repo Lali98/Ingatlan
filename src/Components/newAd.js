@@ -20,7 +20,7 @@ function NewAd() {
                     <form className='row' onSubmit={async (e) => {
                         e.preventDefault();
                         const ujIngatlan = {
-                            // kategoriaId: parseInt(e.target.elements.kategoriaId.value),
+                            kategoriaId: parseInt(e.target.elements.kategoriaId.value),
                             leiras: e.target.elements.leiras.value,
                             hirdetesDatuma: e.target.elements.hirdetesDatuma.value,
                             tehermentes: e.target.elements.tehermentes.checked,
