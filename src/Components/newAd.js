@@ -3,6 +3,7 @@ import {useNavigate} from "react-router-dom";
 
 function NewAd() {
     const [categories, setCategory] = useState([]);
+    const [hibas, setHibas] = useState("");
     useEffect(() => {
         fetch('http://localhost:5000/api/kategoriak', {
             "Content-Type": "application/json"
@@ -11,7 +12,6 @@ function NewAd() {
             .then(data => setCategory(data));
     }, []);
     const navigate = useNavigate();
-    const hibaRef = useRef(null);
     return (
         <div className="container">
             <h2 className="mb-4 text-center">Új hirdetés elküldése</h2>
@@ -36,13 +36,14 @@ function NewAd() {
                         if(response.status === 200) {
                             navigate('/offers');
                         } else {
-                            hibaRef.current.innerHTML = response.status + ' ' + response.statusText;
+                            setHibas(`${response.status} ${response.statusText}`);
                         }
                     }
                     }>
                         <div className="mb-3">
                             <label htmlFor="category" className="form-label">Ingatlan kategóriája</label>
                             <select className="form-select" name="kategoriaId">
+                                <option value=''>--Kérem válaszon--</option>
                                 {categories.map((category) => (
                                     <option value={category.id}>{category.megnevezes}</option>
                                 ))}
@@ -59,7 +60,7 @@ function NewAd() {
                             <textarea className="form-control" name="leiras" rows="3"></textarea>
                         </div>
                         <div className="form-check mb-3">
-                            <input className="form-check-input" type="checkbox" name="tehermentes"/>
+                            <input className="form-check-input" type="checkbox" name="tehermentes" defaultChecked={true}/>
                             <label className="form-check-label" htmlFor="creditFree">Tehermentes ingatlan</label>
                         </div>
                         <div className="mb-3">
@@ -69,10 +70,11 @@ function NewAd() {
                         <div className="mb-3 text-center">
                             <button className="btn btn-primary px-5" type='submit'>Küldés</button>
                         </div>
-                        <div className="alert alert-danger alert-dismissible" role="alert">
-                            <strong ref={hibaRef}>Hiba szövege</strong>
-                            <button type="button" className="btn-close"></button>
-                        </div>
+                        {hibas ? <div className="alert alert-danger alert-dismissible" role="alert">
+                            <strong>{hibas}</strong>
+                            <button type="button" className="btn-close" onClick={() => setHibas("")}></button>
+                        </div> : ""}
+
                     </form>
                 </div>
             </div>
