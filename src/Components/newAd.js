@@ -40,7 +40,7 @@ function NewAd() {
                         <input type="url" className="form-control" name="kepUrl"/>
                     </div>
                     <div className="mb-3 text-center">
-                        <button className="btn btn-primary px-5" type='submit'>Küldés</button>
+                        <button className="btn btn-primary px-5">Küldés</button>
                     </div>
                     <div className="alert alert-danger alert-dismissible" role="alert">
                         <strong>Hiba szövege</strong>
